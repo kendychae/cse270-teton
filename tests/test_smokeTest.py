@@ -15,7 +15,7 @@ from selenium.webdriver.chrome.service import Service
 
 class TestSmokeTest():
   def setup_method(self, method):
-    # Modified setup for headless Chrome with additional options for CI/CD
+    # Modified setup for headless Chrome/Chromium with additional options for CI/CD
     options = Options()
     options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
@@ -24,14 +24,29 @@ class TestSmokeTest():
     options.add_argument("--disable-web-security")
     options.add_argument("--allow-running-insecure-content")
     options.add_argument("--disable-extensions")
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--disable-background-timer-throttling")
+    options.add_argument("--disable-backgrounding-occluded-windows")
+    options.add_argument("--disable-renderer-backgrounding")
     
-    # Use webdriver-manager to automatically manage ChromeDriver
+    # Try different approaches for different environments
     try:
+      # First try webdriver-manager (works locally)
       service = Service(ChromeDriverManager().install())
       self.driver = webdriver.Chrome(service=service, options=options)
-    except:
-      # Fallback to system ChromeDriver if webdriver-manager fails
-      self.driver = webdriver.Chrome(options=options)
+    except Exception:
+      try:
+        # Try system ChromeDriver (CI environment)
+        self.driver = webdriver.Chrome(options=options)
+      except Exception:
+        try:
+          # Try with chromium-chromedriver path
+          options.binary_location = "/usr/bin/chromium-browser"
+          service = Service("/usr/bin/chromedriver")
+          self.driver = webdriver.Chrome(service=service, options=options)
+        except Exception as e:
+          print(f"All ChromeDriver attempts failed: {e}")
+          raise
     
     self.vars = {}
   
