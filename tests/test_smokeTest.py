@@ -10,13 +10,29 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 
 class TestSmokeTest():
   def setup_method(self, method):
-    # Modified setup for headless Chrome
+    # Modified setup for headless Chrome with additional options for CI/CD
     options = Options()
     options.add_argument("--headless=new")
-    self.driver = webdriver.Chrome(options=options)
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-web-security")
+    options.add_argument("--allow-running-insecure-content")
+    options.add_argument("--disable-extensions")
+    
+    # Use webdriver-manager to automatically manage ChromeDriver
+    try:
+      service = Service(ChromeDriverManager().install())
+      self.driver = webdriver.Chrome(service=service, options=options)
+    except:
+      # Fallback to system ChromeDriver if webdriver-manager fails
+      self.driver = webdriver.Chrome(options=options)
+    
     self.vars = {}
   
   def teardown_method(self, method):

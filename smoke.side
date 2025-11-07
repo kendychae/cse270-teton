@@ -1,0 +1,211 @@
+{
+  "id": "00b8e6c8-006c-4e24-9808-9acf580c8b2f",
+  "version": "2.0",
+  "name": "Smoke Test",
+  "url": "http://localhost:5500",
+  "tests": [{
+    "id": "1a2b3c4d-5e6f-7890-abcd-ef1234567890",
+    "name": "test_homePageElements",
+    "commands": [{
+      "id": "1a2b3c4d-1111-1111-1111-111111111111",
+      "command": "open",
+      "target": "http://localhost:5500/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1a2b3c4d-2222-2222-2222-222222222222",
+      "command": "assertElementPresent",
+      "target": "css=img[alt*='Teton Chamber of Commerce Logo']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1a2b3c4d-3333-3333-3333-333333333333",
+      "command": "assertText",
+      "target": "css=.header-title h1",
+      "targets": [],
+      "value": "Teton Idaho"
+    }, {
+      "id": "1a2b3c4d-4444-4444-4444-444444444444",
+      "command": "assertText",
+      "target": "css=.header-title h2",
+      "targets": [],
+      "value": "Chamber of Commerce"
+    }, {
+      "id": "1a2b3c4d-5555-5555-5555-555555555555",
+      "command": "assertTitle",
+      "target": "Teton Idaho CoC",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "2a2b3c4d-5e6f-7890-abcd-ef1234567890",
+    "name": "test_homePageNavigation",
+    "commands": [{
+      "id": "2a2b3c4d-1111-1111-1111-111111111111",
+      "command": "open",
+      "target": "http://localhost:5500/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2a2b3c4d-2222-2222-2222-222222222222",
+      "command": "setWindowSize",
+      "target": "1920x1080",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2a2b3c4d-3333-3333-3333-333333333333",
+      "command": "assertElementPresent",
+      "target": "css=.main-weather",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2a2b3c4d-4444-4444-4444-444444444444",
+      "command": "assertElementPresent",
+      "target": "linkText=Join",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2a2b3c4d-5555-5555-5555-555555555555",
+      "command": "click",
+      "target": "linkText=Join",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "3a2b3c4d-5e6f-7890-abcd-ef1234567890",
+    "name": "test_directoryPage",
+    "commands": [{
+      "id": "3a2b3c4d-1111-1111-1111-111111111111",
+      "command": "open",
+      "target": "http://localhost:5500/directory.html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a2b3c4d-2222-2222-2222-222222222222",
+      "command": "click",
+      "target": "id=directory-grid",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a2b3c4d-3333-3333-3333-333333333333",
+      "command": "assertText",
+      "target": "xpath=//body",
+      "targets": [],
+      "value": "*Teton Turf and Tree*"
+    }, {
+      "id": "3a2b3c4d-4444-4444-4444-444444444444",
+      "command": "click",
+      "target": "id=directory-list",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3a2b3c4d-5555-5555-5555-555555555555",
+      "command": "assertText",
+      "target": "xpath=//body",
+      "targets": [],
+      "value": "*Teton Turf and Tree*"
+    }]
+  }, {
+    "id": "4a2b3c4d-5e6f-7890-abcd-ef1234567890",
+    "name": "test_joinPage",
+    "commands": [{
+      "id": "4a2b3c4d-1111-1111-1111-111111111111",
+      "command": "open",
+      "target": "http://localhost:5500/join.html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4a2b3c4d-2222-2222-2222-222222222222",
+      "command": "assertElementPresent",
+      "target": "name=fname",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4a2b3c4d-3333-3333-3333-333333333333",
+      "command": "type",
+      "target": "name=fname",
+      "targets": [],
+      "value": "John"
+    }, {
+      "id": "4a2b3c4d-4444-4444-4444-444444444444",
+      "command": "type",
+      "target": "name=lname",
+      "targets": [],
+      "value": "Doe"
+    }, {
+      "id": "4a2b3c4d-5555-5555-5555-555555555555",
+      "command": "type",
+      "target": "name=bizname",
+      "targets": [],
+      "value": "Test Business"
+    }, {
+      "id": "4a2b3c4d-6666-6666-6666-666666666666",
+      "command": "type",
+      "target": "name=biztitle",
+      "targets": [],
+      "value": "Manager"
+    }, {
+      "id": "4a2b3c4d-7777-7777-7777-777777777777",
+      "command": "click",
+      "target": "css=input[value='Next Step']",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "5a2b3c4d-5e6f-7890-abcd-ef1234567890",
+    "name": "test_adminPage",
+    "commands": [{
+      "id": "5a2b3c4d-1111-1111-1111-111111111111",
+      "command": "open",
+      "target": "http://localhost:5500/admin.html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5a2b3c4d-2222-2222-2222-222222222222",
+      "command": "assertElementPresent",
+      "target": "id=username",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5a2b3c4d-3333-3333-3333-333333333333",
+      "command": "type",
+      "target": "id=username",
+      "targets": [],
+      "value": "wronguser"
+    }, {
+      "id": "5a2b3c4d-4444-4444-4444-444444444444",
+      "command": "type",
+      "target": "id=password",
+      "targets": [],
+      "value": "wrongpass"
+    }, {
+      "id": "5a2b3c4d-5555-5555-5555-555555555555",
+      "command": "click",
+      "target": "css=input[type='button']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5a2b3c4d-6666-6666-6666-666666666666",
+      "command": "assertText",
+      "target": "css=.errorMessage",
+      "targets": [],
+      "value": "Invalid username and password."
+    }]
+  }],
+  "suites": [{
+    "id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": [
+      "1a2b3c4d-5e6f-7890-abcd-ef1234567890",
+      "2a2b3c4d-5e6f-7890-abcd-ef1234567890",
+      "3a2b3c4d-5e6f-7890-abcd-ef1234567890",
+      "4a2b3c4d-5e6f-7890-abcd-ef1234567890",
+      "5a2b3c4d-5e6f-7890-abcd-ef1234567890"
+    ]
+  }],
+  "urls": ["http://localhost:5500"],
+  "plugins": []
+}
