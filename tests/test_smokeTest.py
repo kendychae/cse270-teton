@@ -2,6 +2,7 @@
 import pytest
 import time
 import json
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
@@ -9,19 +10,38 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
 class TestSmokeTest():
   def setup_method(self, method):
-    # Modified setup for headless Firefox - more reliable in CI/CD
+    # Chrome setup optimized for CI/CD environments
     options = Options()
-    options.add_argument("--headless")
+    options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-web-security")
+    options.add_argument("--allow-running-insecure-content")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-plugins")
+    options.add_argument("--disable-images")
+
+    options.add_argument("--window-size=1920,1080")
     
-    # Simple Firefox setup - works reliably in CI
-    self.driver = webdriver.Firefox(options=options)
+    # For CI environments, ensure we use the correct ChromeDriver
+    if os.environ.get('CI'):
+        # Running in CI - use system ChromeDriver
+        self.driver = webdriver.Chrome(options=options)
+    else:
+        # Running locally - try to use system or installed ChromeDriver
+        try:
+            self.driver = webdriver.Chrome(options=options)
+        except Exception:
+            # Fallback for local development
+            print("ChromeDriver not found locally, using default")
+            self.driver = webdriver.Chrome(options=options)
+    
     self.vars = {}
   
   def teardown_method(self, method):
