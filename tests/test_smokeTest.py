@@ -9,45 +9,19 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.service import Service
 
 class TestSmokeTest():
   def setup_method(self, method):
-    # Modified setup for headless Chrome/Chromium with additional options for CI/CD
+    # Modified setup for headless Firefox - more reliable in CI/CD
     options = Options()
-    options.add_argument("--headless=new")
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--disable-web-security")
-    options.add_argument("--allow-running-insecure-content")
-    options.add_argument("--disable-extensions")
-    options.add_argument("--window-size=1920,1080")
-    options.add_argument("--disable-background-timer-throttling")
-    options.add_argument("--disable-backgrounding-occluded-windows")
-    options.add_argument("--disable-renderer-backgrounding")
     
-    # Try different approaches for different environments
-    try:
-      # First try webdriver-manager (works locally)
-      service = Service(ChromeDriverManager().install())
-      self.driver = webdriver.Chrome(service=service, options=options)
-    except Exception:
-      try:
-        # Try system ChromeDriver (CI environment)
-        self.driver = webdriver.Chrome(options=options)
-      except Exception:
-        try:
-          # Try with chromium-chromedriver path
-          options.binary_location = "/usr/bin/chromium-browser"
-          service = Service("/usr/bin/chromedriver")
-          self.driver = webdriver.Chrome(service=service, options=options)
-        except Exception as e:
-          print(f"All ChromeDriver attempts failed: {e}")
-          raise
-    
+    # Simple Firefox setup - works reliably in CI
+    self.driver = webdriver.Firefox(options=options)
     self.vars = {}
   
   def teardown_method(self, method):
